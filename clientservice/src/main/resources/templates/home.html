@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OAuth2 Token Info</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 600px;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      color: #eee;
+      z-index: 1;
+      position: relative;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .joke-button, .quote-button {
+      text-decoration: none;
+      padding: 14px 24px;
+      font-size: 18px;
+      border-radius: 8px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .joke-button {
+      background-color: #5d4037;
+    }
+
+    .joke-button:hover {
+      background-color: #4e342e;
+      transform: scale(1.08);
+    }
+
+    .quote-button {
+      background-color: #212121;
+    }
+
+    .quote-button:hover {
+      background-color: #111;
+      transform: scale(1.08);
+    }
+
+    h1 {
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #f5f5f5;
+    }
+
+    h2 {
+      margin-top: 20px;
+      color: #ffe0b2;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+
+    .token-box {
+      background-color: #3e2723;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .scope-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .scope-list li {
+      background-color: #4e342e;
+      margin-bottom: 6px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      color: #ffe0b2;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="button-container">
+    <a th:href="@{/jokes}" class="joke-button">🎭 Jokes</a>
+    <a th:href="@{/quotes}" class="quote-button">📜 Quotes</a>
+  </div>
+
+  <h1>OAuth2 Token Info</h1>
+
+  <h2>Authorized User</h2>
+  <p th:text="${userName}">User Name</p>
+
+  <h2>Access Token</h2>
+  <div class="token-box">
+    <p th:text="${tokenValue}">Access Token</p>
+  </div>
+
+  <h2>Token Scopes</h2>
+  <ul class="scope-list">
+    <li th:each="scope : ${tokenScopes}" th:text="${scope}"></li>
+  </ul>
+</div>
+</body>
+</html>
