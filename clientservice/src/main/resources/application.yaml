@@ -1,0 +1,37 @@
+server:
+  port: 7000
+  servlet:
+    session:
+      cookie:
+        name: CLIENT_SESSION  # This needs to be here for localhost
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security: DEBUG
+
+spring:
+  application:
+    name: clientservice
+  security:
+    oauth2:
+      client:
+        registration:
+          my-client:
+            provider: auth-server # The provider of the authentication is the auth-service which is defined below
+            client-id: my-client-id
+            client-secret: my-client-secret
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:7000/login/oauth2/code/my-client
+            scope:
+              - openid
+              - scope-a
+        provider:
+          auth-server:
+            authorization-uri: http://localhost:9000/oauth2/authorize
+            token-uri: http://localhost:9000/oauth2/token
+            jwk-set-uri: http://localhost:9000/oauth2/jwks
+            user-info-uri: http://localhost:9000/userinfo
